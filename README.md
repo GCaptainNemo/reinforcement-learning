@@ -1,2 +1,2 @@
 # reinforcement-learning
-强化学习知识整理归纳
+强化学习读书笔记
