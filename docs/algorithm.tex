@@ -1,0 +1,45 @@
+\documentclass[UTF8]{ctexart}
+% \usepackage[linesnumbered,boxed,ruled,commentsnumbered]{algorithm2e}%%算法包，注意设置所需可选项
+\usepackage[noend]{algpseudocode}
+\usepackage{algorithmicx,algorithm}
+\begin{document}
+%\IncMargin{1em} % 使得行号不向外突出 
+\begin{algorithm}[t]
+\caption{Value Iteration Algorithm} %算法的名字
+\hspace*{0.02in} {\bf Input:}
+初始状态值函数 $V_0$, 奖励函数 $R_s^a$, 转移概率$P_{ss'}^a$, 精度$\epsilon$, 折扣系数$\gamma$ \\
+\hspace*{0.02in} {\bf Output:} %算法的结果输出
+最优值函数 $V^*$ \\
+\hspace*{0.02in} {\bf Operator:} $\ \Phi(V)(s) = \max_{\pi}\{\sum_{a\in A} \pi(a|s)[R_s^a + \gamma \sum_{s' \in S}P_{ss'}^a V(s')]\}$
+\begin{algorithmic}[1]
+
+\While{$||V - \Phi(V)|| > \frac{(1-\gamma)\epsilon}{\gamma}$} 
+		 \State $V \leftarrow \Phi(V)$
+\EndWhile
+\State $V^* = \Phi(V)$
+\State \Return $V^*$
+\end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}[t]
+\caption{Policy Iteration Algorithm} %算法的名字
+\hspace*{0.02in} {\bf Input:} %算法的输入， \hspace*{0.02in}用来控制位置，同时利用 \\ 进行换行
+初始策略 $\pi_0$(随机性策略), 奖励函数 $R_s^a$, 转移概率$P_{ss'}^a$, 精度$\epsilon$,折扣系数$\gamma$ \\
+\hspace*{0.02in} {\bf Output:} %算法的结果输出
+最优策略 $\pi^*$
+\begin{algorithmic}[1]
+\State $\pi \leftarrow \pi_0$% \State 后写一般语句
+\State $\pi' \leftarrow -\infty$
+\While{$||\pi - \pi'|| > \epsilon$} % While语句，需要和EndWhile对应
+		 \State {求解方程$V(s) = \sum_{a\in A} \pi(a|s)[R_s^a + \gamma \sum_{s' \in S}P_{ss'}^a V(s')]$得到解$V_\pi$}
+　　\State $V \leftarrow V_{\pi}$(V与策略$\pi$无关)
+		 \State $\pi' \leftarrow \pi$
+    \State $\pi \leftarrow \arg\max_{\pi} \sum_{a\in A} \pi(a|s)[R_s^a + \gamma \sum_{s' \in S}P_{ss'}^a V(s')]$
+\EndWhile
+\State $\pi^* \leftarrow \pi$
+\State \Return $\pi^*$
+\end{algorithmic}
+\end{algorithm}
+%\DecMargin{1em}
+\end{document}
