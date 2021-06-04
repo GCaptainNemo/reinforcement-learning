@@ -41,5 +41,28 @@
 \State \Return $\pi^*$
 \end{algorithmic}
 \end{algorithm}
+
+
+\begin{algorithm}[t]
+\caption{TD(0)算法} %算法的名字
+\hspace*{0.02in} {\bf Input:} %算法的输入， \hspace*{0.02in}用来控制位置，同时利用 \\ 进行换行
+初始状态值函数$V_0$
+\hspace*{0.02in} {\bf Output:} %算法的结果输出
+状态值函数 $V$
+\begin{algorithmic}[1]
+\State $V \leftarrow V_0$% \State 后写一般语句
+\For{$t \leftarrow 0 \ \mathbf{to} \ T$ } % While语句，需要和EndWhile对应
+		 \State {$s \leftarrow SelectState()$}
+			\For{each step of epoch $t$} % While语句，需要和EndWhile对应
+						\State {$r' \leftarrow Reward(s, \pi(a|s))$}
+						\State {$s' \leftarrow NextState(s, a))$}
+						\State {$V(s) \leftarrow (1 - \alpha)V(s) + \alpha[r' + \gamma V(s')]$}
+						\State {$s \leftarrow s'$}
+			\EndFor
+\EndFor
+\State \Return $V$
+\end{algorithmic}
+\end{algorithm}
+
 %\DecMargin{1em}
 \end{document}
